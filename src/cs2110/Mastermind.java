@@ -127,6 +127,9 @@ public class Mastermind {
      * Requires that `code` is a valid for the given `alphabetSize`.
      */
     static void play(Scanner sc, String code, int alphabetSize, int turns, boolean hardMode) {
+        int guess_num = 1;
+        System.out.println(guess_num + ". Enter a guess: ");
+
         // TODO 5: Implement this method according to its specs in the case that `hardMode` is `false`.
         // TODO 6: Modify the definition of this method to account for the case that `hardMode` is
         //  `true`. Your definition should promote maintainability by avoiding duplicate code and
