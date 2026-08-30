@@ -64,6 +64,4 @@ public class PegCountsTest {
 
 
 
-        // TODO 4: Add additional test cases to cover the specifications of the `pegCounts()`
-        //  method. All of your tests should include descriptive @DisplayNames and method names.
 }

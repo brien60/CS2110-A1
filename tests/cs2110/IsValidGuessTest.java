@@ -143,6 +143,4 @@ public class IsValidGuessTest {
 
 //    test zeros
 
-        // TODO 2: Add additional test cases to cover the specifications of the `isValidGuess()`
-        //  method. All of your tests should include descriptive @DisplayNames and method names.
 }

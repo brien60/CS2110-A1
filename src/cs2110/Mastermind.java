@@ -2,6 +2,7 @@ package cs2110;
 
 import java.util.Random;
 import java.util.Scanner;
+import javax.swing.plaf.metal.MetalBorders.PaletteBorder;
 
 /**
  * A console-based implementation of the popular Mastermind code-breaking game.
@@ -20,7 +21,6 @@ public class Mastermind {
     static boolean isValidGuess(String guess, int codeLength, int alphabetSize) {
         assert guess != null; // defensive programming for implicit non-null pre-condition
 
-        // TODO 1: Implement this method according to its specifications.
         if (guess.length() != codeLength) {
             System.out.println("Your guess must have " + codeLength + " symbols. Try again.");
             return false;
@@ -58,7 +58,6 @@ public class Mastermind {
         assert guess != null;
         assert code != null;
 
-        // TODO 3: Implement this method according to its specifications.
         int[] pegCounts = new int[2];
 
         boolean[] codeSymbolIsPaired = new boolean[code.length()];
@@ -112,6 +111,24 @@ public class Mastermind {
         );
     }
 
+
+    static boolean isValidGuessHardMode(String guess, String[] allGuesses, int[][] allPegCounts, int guessNum) {
+        // loop through all guesses and pegCounts before this turn
+        for (int i = 0; i < guessNum - 1; i++) {
+            String pastGuess = allGuesses[i];
+            int[] pastPegCounts = allPegCounts[i];
+
+            int[] pegCountsIfGuessWereCode = pegCounts(pastGuess, guess);
+
+            // check if the pegCounts for the past guess would be the same if the code were the guess
+            if (pegCountsIfGuessWereCode[0] != pastPegCounts[0] || pegCountsIfGuessWereCode[1] != pastPegCounts[1]) {
+                System.out.println("Your guess conflicts with information from the guess " + pastGuess + ". Try again.");
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * Simulates a game of Mastermind with the given target `code`, using the given Scanner `sc` to
      * receive guesses from the user. Over the course of the given number of `turns`, the game
@@ -127,14 +144,46 @@ public class Mastermind {
      * Requires that `code` is a valid for the given `alphabetSize`.
      */
     static void play(Scanner sc, String code, int alphabetSize, int turns, boolean hardMode) {
-        int guess_num = 1;
-        System.out.println(guess_num + ". Enter a guess: ");
+        int guessNum = 1;
+        int codeLength = code.length();
 
-        // TODO 5: Implement this method according to its specs in the case that `hardMode` is `false`.
+        String[] allGuesses = new String[turns];
+        int[][] allPegCounts = new int[turns][2];
+
+        while (guessNum <= turns) {
+            String guess;
+            while (true) {
+                System.out.print(guessNum + ". Enter a guess: ");
+                guess = sc.nextLine();
+
+                // if guess doesn't pass the normal conditions, continue to next loop regardless of hardMode value
+                if (!isValidGuess(guess, codeLength, alphabetSize)) continue;
+
+                //  continue to next loop if hardMode=true and the guess doesn't pass the hard mode conditions
+                if (hardMode) {
+                    if (!isValidGuessHardMode(guess, allGuesses, allPegCounts, guessNum)) continue;
+                }
+                break;
+            }
+            int[] pegCounts = pegCounts(guess, code);
+            printKeyPegs(pegCounts, codeLength);
+
+            if (pegCounts[0] == codeLength) {
+                System.out.println("Congratulations! You won in " + guessNum + " guesses.");
+                return;
+            }
+
+            allGuesses[guessNum-1] = guess;
+            allPegCounts[guessNum-1] = pegCounts;
+            guessNum++;
+        }
+        System.out.println("Better luck next time. The code was " + code + ".");
+
+
+
         // TODO 6: Modify the definition of this method to account for the case that `hardMode` is
         //  `true`. Your definition should promote maintainability by avoiding duplicate code and
         //  delegating involved computations to at least one helper method.
-        throw new UnsupportedOperationException();
     }
 
     /**
@@ -200,6 +249,7 @@ public class Mastermind {
         }
 
         String code = generateRandomCode(codeLength, alphabetSize);
+//        System.out.println(code);
         int numGuesses = codeLength + alphabetSize - 2;
 
         System.out.printf("Welcome to Mastermind!%nWe've generated a secret code containing %d"
