@@ -2,7 +2,6 @@ package cs2110;
 
 import java.util.Random;
 import java.util.Scanner;
-import javax.swing.plaf.metal.MetalBorders.PaletteBorder;
 
 /**
  * A console-based implementation of the popular Mastermind code-breaking game.
