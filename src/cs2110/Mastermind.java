@@ -183,12 +183,6 @@ public class Mastermind {
             guessNum++;
         }
         System.out.println("Better luck next time. The code was " + code + ".");
-
-
-
-        // TODO 6: Modify the definition of this method to account for the case that `hardMode` is
-        //  `true`. Your definition should promote maintainability by avoiding duplicate code and
-        //  delegating involved computations to at least one helper method.
     }
 
     /**

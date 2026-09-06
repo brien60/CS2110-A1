@@ -89,6 +89,14 @@ public class IsValidGuessTest {
         boolean b = Mastermind.isValidGuess("123", 4, 6);
         assertFalse(b);
         assertOutput("Your guess must have 4 symbols. Try again.");
+
+        b = Mastermind.isValidGuess("", 4, 6);
+        assertFalse(b);
+        assertOutput("Your guess must have 4 symbols. Try again.");
+
+        b = Mastermind.isValidGuess("1", 10, 6);
+        assertFalse(b);
+        assertOutput("Your guess must have 10 symbols. Try again.");
     }
 
     @DisplayName("WHEN a guess is made with a non-digit symbol, THEN `isValidGuess()` returns "
@@ -98,6 +106,14 @@ public class IsValidGuessTest {
         boolean b = Mastermind.isValidGuess("12E4", 4, 6);
         assertFalse(b);
         assertOutput("Your guess cannot include the symbol 'E'. Try again.");
+
+        b = Mastermind.isValidGuess("12a4", 4, 9);
+        assertFalse(b);
+        assertOutput("Your guess cannot include the symbol 'a'. Try again.");
+
+        b = Mastermind.isValidGuess("12!4", 4, 10);
+        assertFalse(b);
+        assertOutput("Your guess cannot include the symbol '!'. Try again.");
     }
 
     @DisplayName("WHEN a guess is made with a digit not in the allowed subset of digit characters "
@@ -108,6 +124,22 @@ public class IsValidGuessTest {
         boolean b = Mastermind.isValidGuess("54321", 5, 4);
         assertFalse(b);
         assertOutput("Your guess cannot include the symbol '5'. Try again.");
+
+        b = Mastermind.isValidGuess("1230", 4, 9);
+        assertFalse(b);
+        assertOutput("Your guess cannot include the symbol '0'. Try again.");
+
+        b = Mastermind.isValidGuess("6789", 4, 5);
+        assertFalse(b);
+        assertOutput("Your guess cannot include the symbol '6'. Try again.");
+
+        b = Mastermind.isValidGuess("4785", 4, 5);
+        assertFalse(b);
+        assertOutput("Your guess cannot include the symbol '7'. Try again.");
+
+        b = Mastermind.isValidGuess("4589", 4, 5);
+        assertFalse(b);
+        assertOutput("Your guess cannot include the symbol '8'. Try again.");
     }
 
     @DisplayName("WHEN a guess is made with too many symbols, THEN `isValidGuess()` returns "
@@ -121,6 +153,10 @@ public class IsValidGuessTest {
         b = Mastermind.isValidGuess("1", 0, 9);
         assertFalse(b);
         assertOutput("Your guess must have 0 symbols. Try again.");
+
+        b = Mastermind.isValidGuess("12A", 4, 6);
+        assertFalse(b);
+        assertOutput("Your guess must have 4 symbols. Try again.");
     }
 
     @DisplayName("WHEN a valid guess is made with `alphabetSize == 10`, THEN "
@@ -129,6 +165,7 @@ public class IsValidGuessTest {
     void testAlphabetSizeTen() {
         boolean b = Mastermind.isValidGuess("123456789032", 12, 10);
         assertTrue(b);
+        assertNoOutput();
     }
 
     @DisplayName("WHEN a valid guess is made with an `alphabetSize` less than 10 , THEN "
@@ -137,13 +174,31 @@ public class IsValidGuessTest {
     void testAlphabetSizeLessTen() {
         boolean b = Mastermind.isValidGuess("111111", 6, 1);
         assertTrue(b);
+        assertNoOutput();
 
         b = Mastermind.isValidGuess("121212", 6, 2);
         assertTrue(b);
+        assertNoOutput();
 
         b = Mastermind.isValidGuess("123456789", 9, 9);
         assertTrue(b);
+        assertNoOutput();
     }
+
+    @DisplayName("WHEN a guess is made with a space character, THEN "
+            + "`isValidGuess()` returns `false` and nothing is printed.")
+    @Test
+    void testSpaceCharacter() {
+        boolean b = Mastermind.isValidGuess("4 66464", 6, 4);
+        assertFalse(b);
+
+        b = Mastermind.isValidGuess(" 464646", 6, 4);
+        assertFalse(b);
+
+        b = Mastermind.isValidGuess("464646 ", 6, 4);
+        assertFalse(b);
+    }
+
 
 
 }
