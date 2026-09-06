@@ -117,6 +117,10 @@ public class IsValidGuessTest {
         boolean b = Mastermind.isValidGuess("123456789", 8, 9);
         assertFalse(b);
         assertOutput("Your guess must have 8 symbols. Try again.");
+
+        b = Mastermind.isValidGuess("1", 0, 9);
+        assertFalse(b);
+        assertOutput("Your guess must have 0 symbols. Try again.");
     }
 
     @DisplayName("WHEN a valid guess is made with `alphabetSize == 10`, THEN "
@@ -141,6 +145,5 @@ public class IsValidGuessTest {
         assertTrue(b);
     }
 
-//    test zeros
 
 }

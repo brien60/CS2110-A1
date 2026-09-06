@@ -110,7 +110,13 @@ public class Mastermind {
         );
     }
 
-
+    /**
+     * Returns `false` and prints an explanatory message if the given `guess` is not valid,
+     * otherwise returns `true`. A guess is not valid if it conflicts with the information given
+     * by any previous guess. That is, the pegCounts for every previous guess should not change if
+     * the guess were the code. If a guess is not valid, "Your guess conflicts with information
+     * from the guess #. Try again." is printed, where # is replaced by the earliest conflicting guess.
+     */
     static boolean isValidGuessHardMode(String guess, String[] allGuesses, int[][] allPegCounts, int guessNum) {
         // loop through all guesses and pegCounts before this turn
         for (int i = 0; i < guessNum - 1; i++) {
@@ -229,7 +235,7 @@ public class Mastermind {
     @SuppressWarnings("ForLoopReplaceableByForEach")
     public static void main(String[] args) {
         // initialize settings to default values
-        boolean hardMode = false;
+        boolean hardMode = true;
         int codeLength = 4;
         int alphabetSize = 6;
 
@@ -248,7 +254,7 @@ public class Mastermind {
         }
 
         String code = generateRandomCode(codeLength, alphabetSize);
-//        System.out.println(code);
+        System.out.println(code);
         int numGuesses = codeLength + alphabetSize - 2;
 
         System.out.printf("Welcome to Mastermind!%nWe've generated a secret code containing %d"

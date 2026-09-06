@@ -50,16 +50,19 @@ public class PegCountsTest {
     }
 
     @DisplayName("WHEN the guess has all the same symbols as the code, but disagrees in position for "
-            + "all of them, THEN the returned array should have the 0 at index 0 (no red pegs) and 0 "
+            + "all of them, THEN the returned array should have 0 at index 0 (no red pegs) and 0 "
             + "at index 1 (`codeLength` white pegs).")
     @Test
     void testAllWhitePegs() {
         assertArrayEquals(new int[]{0, 5}, Mastermind.pegCounts("12345", "34251"));
     }
 
+    @DisplayName("WHEN the guess shares a common element as the code, but disagrees in position for "
+            + "it, THEN the returned array should have 0 at index 0 and 1 at index 1.")
+
     @Test
-    void testRandomStuff() {
-        assertArrayEquals(new int[]{2, 2}, Mastermind.pegCounts("1133", "3113"));
+    void testOneWhitePeg() {
+        assertArrayEquals(new int[]{0, 1}, Mastermind.pegCounts("1234", "2078"));
     }
 
 
