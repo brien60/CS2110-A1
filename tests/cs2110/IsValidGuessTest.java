@@ -94,16 +94,16 @@ public class IsValidGuessTest {
         assertFalse(b);
         assertOutput("Your guess must have 4 symbols. Try again.");
 
-        b = Mastermind.isValidGuess("1", 10, 6);
+        b = Mastermind.isValidGuess("1", 6, 6);
         assertFalse(b);
-        assertOutput("Your guess must have 10 symbols. Try again.");
+        assertOutput("Your guess must have 6 symbols. Try again.");
     }
 
     @DisplayName("WHEN a guess is made with a non-digit symbol, THEN `isValidGuess()` returns "
             + "`false` and prints the correct error message.")
     @Test
     void testGuessNonDigit() {
-        boolean b = Mastermind.isValidGuess("12E4", 4, 6);
+        boolean b = Mastermind.isValidGuess("12Ea", 4, 6);
         assertFalse(b);
         assertOutput("Your guess cannot include the symbol 'E'. Try again.");
 
@@ -146,24 +146,24 @@ public class IsValidGuessTest {
             + "`false` and prints the correct error message.")
     @Test
     void testGuessTooLong() {
-        boolean b = Mastermind.isValidGuess("123456789", 8, 9);
+        boolean b = Mastermind.isValidGuess("123456789", 6, 9);
         assertFalse(b);
-        assertOutput("Your guess must have 8 symbols. Try again.");
+        assertOutput("Your guess must have 6 symbols. Try again.");
 
-        b = Mastermind.isValidGuess("1", 0, 9);
+        b = Mastermind.isValidGuess("123A", 3, 6);
         assertFalse(b);
-        assertOutput("Your guess must have 0 symbols. Try again.");
-
-        b = Mastermind.isValidGuess("12A", 4, 6);
-        assertFalse(b);
-        assertOutput("Your guess must have 4 symbols. Try again.");
+        assertOutput("Your guess must have 3 symbols. Try again.");
     }
 
     @DisplayName("WHEN a valid guess is made with `alphabetSize == 10`, THEN "
             + "`isValidGuess()` returns `true` and nothing is printed.")
     @Test
     void testAlphabetSizeTen() {
-        boolean b = Mastermind.isValidGuess("123456789032", 12, 10);
+        boolean b = Mastermind.isValidGuess("012345", 6, 10);
+        assertTrue(b);
+        assertNoOutput();
+
+        b = Mastermind.isValidGuess("6789", 4, 10);
         assertTrue(b);
         assertNoOutput();
     }
@@ -180,7 +180,11 @@ public class IsValidGuessTest {
         assertTrue(b);
         assertNoOutput();
 
-        b = Mastermind.isValidGuess("123456789", 9, 9);
+        b = Mastermind.isValidGuess("123456", 6, 9);
+        assertTrue(b);
+        assertNoOutput();
+
+        b = Mastermind.isValidGuess("789", 3, 9);
         assertTrue(b);
         assertNoOutput();
     }
