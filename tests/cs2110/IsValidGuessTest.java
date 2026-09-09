@@ -172,11 +172,11 @@ public class IsValidGuessTest {
             + "`isValidGuess()` returns `true` and nothing is printed.")
     @Test
     void testAlphabetSizeLessTen() {
-        boolean b = Mastermind.isValidGuess("111111", 6, 1);
+        boolean b = Mastermind.isValidGuess("123455", 6, 5);
         assertTrue(b);
         assertNoOutput();
 
-        b = Mastermind.isValidGuess("121212", 6, 2);
+        b = Mastermind.isValidGuess("141414", 6, 4);
         assertTrue(b);
         assertNoOutput();
 

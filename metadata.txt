@@ -1,6 +1,6 @@
 Assignment 1: Mastermind
 
-Assignment completion time (rounded to nearest hour): 4
+Assignment completion time (rounded to nearest hour): 6
 
 [x] the appropriate choice: [x] Worked alone   [] Completed with a partner
 

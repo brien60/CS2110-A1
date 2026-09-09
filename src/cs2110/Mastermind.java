@@ -19,6 +19,7 @@ public class Mastermind {
      */
     static boolean isValidGuess(String guess, int codeLength, int alphabetSize) {
         assert guess != null; // defensive programming for implicit non-null pre-condition
+        assert alphabetSize >= 4 && alphabetSize <= 10; // defensive programming for alphabetSize pre-condition
 
         if (guess.length() != codeLength) {
             System.out.println("Your guess must have " + codeLength + " symbols. Try again.");
@@ -229,7 +230,7 @@ public class Mastermind {
     @SuppressWarnings("ForLoopReplaceableByForEach")
     public static void main(String[] args) {
         // initialize settings to default values
-        boolean hardMode = true;
+        boolean hardMode = false;
         int codeLength = 4;
         int alphabetSize = 6;
 
@@ -248,7 +249,6 @@ public class Mastermind {
         }
 
         String code = generateRandomCode(codeLength, alphabetSize);
-        System.out.println(code);
         int numGuesses = codeLength + alphabetSize - 2;
 
         System.out.printf("Welcome to Mastermind!%nWe've generated a secret code containing %d"
